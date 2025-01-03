@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            width: 360px;
+            background: #333;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .display {
+            background: #000;
+            color: #fff;
+            text-align: right;
+            padding: 20px;
+            font-size: 2.5rem;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            background: #444;
+            border: none;
+            padding: 20px;
+            font-size: 1.5rem;
+            color: #fff;
+            border-radius: 10px;
+            text-align: center;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #555;
+        }
+
+        .button.operator {
+            background: #1e88e5;
+        }
+
+        .button.operator:hover {
+            background: #1565c0;
+        }
+
+        .button.equal {
+            background: #43a047;
+            grid-column: span 2;
+        }
+
+        .button.equal:hover {
+            background: #2e7d32;
+        }
+
+        .button.clear {
+            background: #e53935;
+        }
+
+        .button.clear:hover {
+            background: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendInput('%')">%</button>
+            <button class="button operator" onclick="appendInput('/')">÷</button>
+            <button class="button operator" onclick="appendInput('*')">×</button>
+            <button class="button" onclick="appendInput('7')">7</button>
+            <button class="button" onclick="appendInput('8')">8</button>
+            <button class="button" onclick="appendInput('9')">9</button>
+            <button class="button operator" onclick="appendInput('-')">−</button>
+            <button class="button" onclick="appendInput('4')">4</button>
+            <button class="button" onclick="appendInput('5')">5</button>
+            <button class="button" onclick="appendInput('6')">6</button>
+            <button class="button operator" onclick="appendInput('+')">+</button>
+            <button class="button" onclick="appendInput('1')">1</button>
+            <button class="button" onclick="appendInput('2')">2</button>
+            <button class="button" onclick="appendInput('3')">3</button>
+            <button class="button equal" onclick="calculate()">=</button>
+            <button class="button" onclick="appendInput('0')">0</button>
+            <button class="button" onclick="appendInput('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+
+        const display = document.getElementById('display');
+
+        function appendInput(value) {
+            if (currentInput.length < 20) { // Limit display length
+                currentInput += value;
+                updateDisplay(currentInput);
+            }
+        }
+
+        function calculate() {
+            try {
+                // Evaluate the expression and show result
+                const result = eval(currentInput);
+                currentInput = "i miss your voice :(";
+                updateDisplay(currentInput);
+            } catch (error) {
+                updateDisplay('Error');
+                currentInput = '';
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            updateDisplay('0');
+        }
+
+        function updateDisplay(value) {
+            display.textContent = value;
+        }
+    </script>
+</body>
+</html>
